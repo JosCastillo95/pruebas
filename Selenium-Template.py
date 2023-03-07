@@ -37,4 +37,4 @@ driver = webdriver.Chrome(options = chrome_options)
 driver.get('https://super.walmart.com.mx/ip/agua-mineral-penafiel-tonica-6-pzas-de-296-ml-c-u/00750107384163')
 precio = driver.find_element(By.XPATH,'/html/body/div[1]/div[1]/div/div/div/div/section/main/div[2]/div[2]/div/div[1]/div/div/div[1]/div/div/div[2]/div/div/div[1]')
 precio = precio.text
-print('El precio es: {precio}')
+print('El precio es:'+str(precio))
