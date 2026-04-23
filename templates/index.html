@@ -1,404 +1,598 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Optimizador de Contenido E-commerce</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NANO BANANA — PDP Optimizer</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #f0f2f5;
-      color: #1a1a2e;
-      min-height: 100vh;
-      padding: 2rem 1rem;
-    }
+:root{
+  --navy:#0f1d35;
+  --navy2:#162240;
+  --navy3:#1e2f52;
+  --green:#22c55e;
+  --green-bg:#dcfce7;
+  --blue:#3b82f6;
+  --blue-bg:#dbeafe;
+  --red:#ef4444;
+  --red-bg:#fee2e2;
+  --gray:#6b7280;
+  --light:#f3f6fb;
+  --border:#e5e9f2;
+  --white:#ffffff;
+  --shadow:0 2px 12px rgba(15,29,53,.10);
+}
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  background:var(--light);
+  color:#1a2035;
+  min-height:100vh;
+}
 
-    header {
-      margin-bottom: 2rem;
-    }
+/* ── HEADER ── */
+header{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy3) 100%);
+  padding:1.1rem 2rem .9rem;
+  display:flex;flex-direction:column;align-items:center;
+  border-bottom:2px solid rgba(255,255,255,.06);
+}
+.logo-row{display:flex;align-items:center;gap:.65rem}
+.logo-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:linear-gradient(135deg,#f59e0b,#fcd34d);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.35rem;
+}
+.logo-text h1{color:#fff;font-size:1.35rem;font-weight:800;letter-spacing:-.01em}
+.logo-text span{color:#94a3b8;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.page-title{
+  margin-top:.55rem;
+  color:#cbd5e1;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+}
 
-    header h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
+/* ── LAYOUT ── */
+.workspace{
+  display:grid;
+  grid-template-columns:420px 1fr;
+  gap:1.25rem;
+  max-width:1280px;
+  margin:1.25rem auto;
+  padding:0 1.25rem 2rem;
+}
 
-    header p {
-      font-size: 0.875rem;
-      color: #666;
-      margin-top: 0.25rem;
-    }
+/* ── CARD ── */
+.card{
+  background:var(--white);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.card-header{
+  background:var(--navy);
+  color:#e2e8f0;
+  font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:.65rem 1.1rem;
+}
+.card-body{padding:1.1rem}
 
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-      padding: 1.75rem;
-      margin-bottom: 1.5rem;
-    }
+/* ── STEPS ── */
+.step{margin-bottom:1.1rem}
+.step-label{
+  font-size:.67rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gray);margin-bottom:.45rem;
+}
 
-    .card h2 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: #555;
-      margin-bottom: 1.25rem;
-    }
+/* ── TOGGLE BUTTONS ── */
+.toggle-group{display:flex;gap:.45rem}
+.toggle-btn{
+  flex:1;padding:.55rem .4rem;
+  border:1.5px solid var(--border);
+  border-radius:8px;background:var(--light);
+  font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  cursor:pointer;transition:all .15s;color:#334155;
+}
+.toggle-btn:hover{border-color:#94a3b8;background:#fff}
+.toggle-btn.active-brand{
+  background:var(--green);border-color:var(--green);color:#fff;
+}
+.toggle-btn.active-retailer{
+  background:var(--blue);border-color:var(--blue);color:#fff;
+}
 
-    .row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
+/* ── TEXTAREA ── */
+textarea{
+  width:100%;border:1.5px solid var(--border);border-radius:8px;
+  padding:.6rem .75rem;font-size:.82rem;font-family:inherit;
+  color:#1a2035;resize:vertical;background:var(--light);
+  transition:border-color .15s;line-height:1.5;
+}
+textarea:focus{outline:none;border-color:var(--blue);background:#fff}
+.count-row{
+  display:flex;justify-content:flex-end;
+  font-size:.68rem;color:var(--gray);margin-top:.28rem;
+}
 
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
+/* ── DROP ZONE ── */
+.drop-zone{
+  border:2px dashed var(--border);border-radius:10px;
+  min-height:110px;padding:.75rem;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:border-color .15s,background .15s;
+  background:var(--light);position:relative;
+}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:#f0f6ff}
+.drop-placeholder{text-align:center;color:var(--gray)}
+.drop-placeholder .icon{font-size:1.8rem;margin-bottom:.3rem}
+.drop-placeholder p{font-size:.75rem}
+.drop-placeholder small{font-size:.65rem;opacity:.7}
+.drop-zone input[type=file]{
+  position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;
+}
 
-    label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #444;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
+.image-preview-row{display:flex;gap:.75rem;align-items:flex-start;width:100%}
+.preview-img{
+  width:90px;height:90px;object-fit:contain;
+  border-radius:8px;border:1px solid var(--border);background:#fff;flex-shrink:0;
+}
+.vision-box{flex:1;min-width:0}
+.vision-title{
+  font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gray);margin-bottom:.3rem;
+}
+.vision-text{font-size:.78rem;color:#1a2035;line-height:1.45}
+.vision-status{
+  font-size:.67rem;color:var(--green);font-weight:600;margin-top:.3rem;
+}
 
-    select, textarea {
-      border: 1.5px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 0.65rem 0.85rem;
-      font-size: 0.9rem;
-      font-family: inherit;
-      color: #1a1a2e;
-      transition: border-color 0.15s;
-      width: 100%;
-      background: #fafafa;
-    }
+/* ── GENERATE BUTTON ── */
+.generate-btn{
+  width:100%;margin-top:.2rem;
+  padding:.85rem;
+  background:var(--navy);color:#fff;
+  border:none;border-radius:10px;
+  font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  cursor:pointer;transition:background .15s,transform .1s;
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+}
+.generate-btn:hover{background:var(--navy3)}
+.generate-btn:active{transform:scale(.99)}
+.generate-btn:disabled{background:#94a3b8;cursor:not-allowed}
 
-    select:focus, textarea:focus {
-      outline: none;
-      border-color: #4f6ef7;
-      background: #fff;
-    }
+/* ── OUTPUT HEADER ── */
+.output-header{
+  background:var(--navy);
+  padding:.65rem 1.1rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.output-header-title{color:#e2e8f0;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.copy-all-btn{
+  background:rgba(255,255,255,.1);color:#e2e8f0;
+  border:1px solid rgba(255,255,255,.2);border-radius:7px;
+  font-size:.7rem;font-weight:600;padding:.3rem .7rem;cursor:pointer;
+  transition:background .15s;
+}
+.copy-all-btn:hover{background:rgba(255,255,255,.2)}
 
-    select { height: 42px; }
+/* ── OUTPUT BODY ── */
+.output-body{padding:1.1rem;display:flex;flex-direction:column;gap:1rem}
+.empty-state{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:3rem 1rem;color:var(--gray);text-align:center;min-height:300px;
+}
+.empty-state .big-icon{font-size:2.5rem;margin-bottom:.75rem;opacity:.4}
+.empty-state p{font-size:.85rem;opacity:.6}
 
-    textarea {
-      resize: vertical;
-      min-height: 130px;
-      line-height: 1.5;
-    }
+/* ── OUTPUT SECTION ── */
+.out-section{}
+.out-section-title{
+  font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gray);margin-bottom:.4rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.char-count{
+  margin-left:auto;font-size:.7rem;font-weight:700;
+  display:flex;align-items:center;gap:.3rem;
+}
+.char-count.ok{color:var(--green)}
+.char-count.warn{color:#f59e0b}
+.char-count.over{color:var(--red)}
 
-    .full { grid-column: 1 / -1; }
+.out-text-box{
+  background:var(--light);border:1.5px solid var(--border);
+  border-radius:8px;padding:.7rem .85rem;
+  font-size:.84rem;line-height:1.55;color:#1a2035;
+}
+.out-text-box.ok{border-color:rgba(34,197,94,.35)}
+.out-text-box.over{border-color:rgba(239,68,68,.35)}
 
-    button#generate-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      width: 100%;
-      padding: 0.9rem;
-      background: #4f6ef7;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
-    }
+/* bullets */
+.bullets-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.bullet-item{
+  display:flex;align-items:flex-start;gap:.5rem;
+  background:var(--light);border:1.5px solid var(--border);
+  border-radius:8px;padding:.6rem .8rem;
+}
+.bullet-item.ok{border-color:rgba(34,197,94,.3)}
+.bullet-item.over{border-color:rgba(239,68,68,.3)}
+.bullet-num{
+  font-size:.65rem;font-weight:800;color:var(--blue);
+  background:var(--blue-bg);border-radius:4px;
+  padding:.1rem .35rem;flex-shrink:0;margin-top:.1rem;
+}
+.bullet-text{font-size:.82rem;line-height:1.5;flex:1}
+.bullet-chars{font-size:.65rem;color:var(--gray);flex-shrink:0;margin-top:.15rem}
+.bullet-chars.over{color:var(--red)}
 
-    button#generate-btn:hover { background: #3a58d4; }
-    button#generate-btn:active { transform: scale(0.99); }
-    button#generate-btn:disabled { background: #a0aec0; cursor: not-allowed; }
+/* validation */
+.validation-box{
+  background:var(--navy);border-radius:10px;padding:.85rem 1rem;
+  display:flex;gap:1.25rem;
+}
+.val-item{flex:1}
+.val-label{font-size:.62rem;font-weight:700;color:#94a3b8;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem}
+.val-bar-bg{height:6px;background:rgba(255,255,255,.15);border-radius:3px;overflow:hidden}
+.val-bar{height:100%;border-radius:3px;transition:width .6s ease}
+.val-bar.green{background:var(--green)}
+.val-bar.yellow{background:#f59e0b}
+.val-bar.red{background:var(--red)}
+.val-pct{font-size:.7rem;font-weight:700;color:#e2e8f0;margin-top:.3rem}
 
-    .spinner {
-      width: 18px; height: 18px;
-      border: 2.5px solid rgba(255,255,255,0.4);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      display: none;
-    }
+/* keywords tags */
+.kw-tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.kw-tag{
+  background:var(--blue-bg);color:#1d4ed8;
+  border-radius:20px;padding:.18rem .6rem;
+  font-size:.72rem;font-weight:600;
+}
 
-    @keyframes spin { to { transform: rotate(360deg); } }
+/* action row */
+.action-row{display:flex;gap:.6rem}
+.action-btn{
+  flex:1;padding:.6rem;border-radius:8px;
+  font-size:.75rem;font-weight:700;letter-spacing:.04em;
+  cursor:pointer;transition:all .15s;border:none;
+}
+.action-btn.secondary{
+  background:var(--light);color:#334155;border:1.5px solid var(--border);
+}
+.action-btn.secondary:hover{background:#e8edf5}
+.action-btn.primary{
+  background:var(--navy);color:#fff;
+}
+.action-btn.primary:hover{background:var(--navy3)}
 
-    #result-section { display: none; }
+/* spinner */
+.spinner{
+  width:16px;height:16px;
+  border:2.5px solid rgba(255,255,255,.35);
+  border-top-color:#fff;border-radius:50%;
+  animation:spin .6s linear infinite;display:none;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-    .result-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
+/* error */
+.error-bar{
+  background:#fff5f5;border:1.5px solid #fca5a5;
+  border-radius:8px;padding:.6rem .8rem;
+  color:#b91c1c;font-size:.8rem;display:none;margin-top:.5rem;
+}
 
-    .result-block {
-      background: #f7f8fc;
-      border-radius: 8px;
-      padding: 1rem 1.1rem;
-    }
-
-    .result-block.full { grid-column: 1 / -1; }
-
-    .result-block h3 {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: #888;
-      margin-bottom: 0.5rem;
-    }
-
-    .result-block p, .result-block ul {
-      font-size: 0.88rem;
-      color: #222;
-      line-height: 1.55;
-    }
-
-    .result-block ul { padding-left: 1.1rem; }
-    .result-block ul li { margin-bottom: 0.4rem; }
-
-    .char-badge {
-      display: inline-block;
-      background: #e8edf9;
-      color: #4f6ef7;
-      border-radius: 20px;
-      padding: 0.1rem 0.55rem;
-      font-size: 0.72rem;
-      font-weight: 700;
-      margin-left: 0.4rem;
-    }
-
-    .kw-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      margin-top: 0.25rem;
-    }
-
-    .kw-tag {
-      background: #e8edf9;
-      color: #3a58d4;
-      border-radius: 20px;
-      padding: 0.15rem 0.6rem;
-      font-size: 0.78rem;
-      font-weight: 600;
-    }
-
-    .error-box {
-      background: #fff5f5;
-      border: 1.5px solid #fc8181;
-      border-radius: 8px;
-      padding: 1rem;
-      color: #c53030;
-      font-size: 0.88rem;
-      display: none;
-    }
-
-    .raw-btn {
-      font-size: 0.78rem;
-      color: #4f6ef7;
-      background: none;
-      border: none;
-      cursor: pointer;
-      text-decoration: underline;
-      margin-top: 0.75rem;
-      display: inline-block;
-    }
-
-    pre#raw-json {
-      background: #1e1e2e;
-      color: #cdd6f4;
-      border-radius: 8px;
-      padding: 1rem;
-      font-size: 0.8rem;
-      overflow: auto;
-      margin-top: 0.5rem;
-      display: none;
-      white-space: pre-wrap;
-    }
-
-    @media (max-width: 600px) {
-      .row, .result-grid { grid-template-columns: 1fr; }
-      .full { grid-column: 1; }
-    }
-  </style>
+@media(max-width:900px){
+  .workspace{grid-template-columns:1fr;max-width:520px}
+}
+</style>
 </head>
 <body>
-<div class="container">
 
-  <header>
-    <h1>Optimizador de Contenido E-commerce</h1>
-    <p>Generador de títulos, bullets y descripciones para retailers mexicanos.</p>
-  </header>
-
-  <div class="card">
-    <h2>Configuración</h2>
-    <div class="row">
-      <div class="field">
-        <label for="brand">Marca</label>
-        <select id="brand">
-          <option value="">— Selecciona —</option>
-          <option value="Regio">Regio</option>
-          <option value="Saba">Saba</option>
-          <option value="Tena">Tena</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="retailer">Retailer</label>
-        <select id="retailer">
-          <option value="">— Selecciona —</option>
-          <option value="Walmart">Walmart</option>
-          <option value="Amazon">Amazon</option>
-          <option value="Chedraui">Chedraui</option>
-        </select>
-      </div>
-      <div class="field full">
-        <label for="generic-text">Texto Genérico del Producto</label>
-        <textarea id="generic-text" placeholder="Pega aquí la descripción genérica del producto..."></textarea>
-      </div>
-      <div class="field full">
-        <label for="keywords">Keywords Disponibles</label>
-        <textarea id="keywords" placeholder="Pega aquí los keywords separados por coma o salto de línea..." style="min-height:90px;"></textarea>
-      </div>
+<header>
+  <div class="logo-row">
+    <div class="logo-icon">🍌</div>
+    <div class="logo-text">
+      <h1>NANO BANANA</h1>
+      <span>Content Catalyst</span>
     </div>
+  </div>
+  <div class="page-title" id="page-subtitle">PDP OPTIMIZER</div>
+</header>
 
-    <div style="margin-top:1.25rem;">
-      <div id="error-box" class="error-box"></div>
-      <button id="generate-btn" onclick="generate()">
+<div class="workspace">
+
+  <!-- ── LEFT PANEL ── -->
+  <div class="card">
+    <div class="card-header">Generate PDP Content</div>
+    <div class="card-body">
+
+      <!-- BRAND -->
+      <div class="step">
+        <div class="step-label">Step 1 · Select Brand</div>
+        <div class="toggle-group" id="brand-group">
+          <button class="toggle-btn" onclick="selectBrand(this,'Regio')">REGIO</button>
+          <button class="toggle-btn" onclick="selectBrand(this,'Saba')">SABA</button>
+          <button class="toggle-btn" onclick="selectBrand(this,'Tena')">TENA</button>
+        </div>
+      </div>
+
+      <!-- RETAILER -->
+      <div class="step">
+        <div class="step-label">Step 2 · Select Retailer</div>
+        <div class="toggle-group" id="retailer-group">
+          <button class="toggle-btn" onclick="selectRetailer(this,'Amazon')">AMAZON</button>
+          <button class="toggle-btn" onclick="selectRetailer(this,'Walmart')">WALMART</button>
+          <button class="toggle-btn" onclick="selectRetailer(this,'Chedraui')">CHEDRAUI</button>
+        </div>
+      </div>
+
+      <!-- KEYWORDS -->
+      <div class="step">
+        <div class="step-label">Step 3 · Add Keywords <span style="font-weight:400;text-transform:none;letter-spacing:0">(e.g., from Shalion)</span></div>
+        <textarea id="keywords" rows="4"
+          placeholder="toallas higiénicas, absorcion rapida, saba ultra invisible, cuidado íntimo, sin fugas..."
+          oninput="updateKwCount()"></textarea>
+        <div class="count-row"><span id="kw-count">0 Keywords</span></div>
+      </div>
+
+      <!-- GENERIC TEXT (optional) -->
+      <div class="step">
+        <div class="step-label">Step 4 · Generic Product Text <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></div>
+        <textarea id="generic-text" rows="3"
+          placeholder="Pega aquí la descripción genérica del fabricante..."></textarea>
+      </div>
+
+      <!-- IMAGE -->
+      <div class="step">
+        <div class="step-label">Step 5 · Upload Product Image <span style="font-weight:400;text-transform:none;letter-spacing:0">(drag and drop)</span></div>
+        <div class="drop-zone" id="drop-zone"
+          ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)">
+          <input type="file" accept="image/*" onchange="onFileChange(event)">
+          <div class="drop-placeholder" id="drop-placeholder">
+            <div class="icon">🖼️</div>
+            <p>Drag & drop or click to upload</p>
+            <small>JPG, PNG, WEBP — max 4MB</small>
+          </div>
+          <div class="image-preview-row" id="image-preview-row" style="display:none">
+            <img class="preview-img" id="preview-img" src="" alt="preview">
+            <div class="vision-box">
+              <div class="vision-title">Vision Insights</div>
+              <div class="vision-text" id="vision-text">—</div>
+              <div class="vision-status" id="vision-status">Image loaded.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="error-bar" id="error-bar"></div>
+
+      <button class="generate-btn" id="generate-btn" onclick="generate()">
         <div class="spinner" id="spinner"></div>
-        <span id="btn-label">Generar Contenido Optimizado</span>
+        <span id="btn-label">Generate Optimized PDP</span>
       </button>
+
     </div>
   </div>
 
-  <div id="result-section">
-    <div class="card">
-      <h2>Resultado</h2>
-      <div class="result-grid">
-
-        <div class="result-block full">
-          <h3>Título Optimizado <span class="char-badge" id="char-titulo"></span></h3>
-          <p id="titulo"></p>
-        </div>
-
-        <div class="result-block full">
-          <h3>Bullet Points</h3>
-          <ul id="bullets"></ul>
-        </div>
-
-        <div class="result-block full">
-          <h3>Descripción Optimizada <span class="char-badge" id="char-desc"></span></h3>
-          <p id="descripcion" style="white-space:pre-wrap;"></p>
-        </div>
-
-        <div class="result-block full">
-          <h3>Keywords Integradas</h3>
-          <div class="kw-list" id="keywords-out"></div>
-        </div>
-
+  <!-- ── RIGHT PANEL ── -->
+  <div class="card">
+    <div class="output-header">
+      <div class="output-header-title" id="output-title">Optimized PDP Output</div>
+      <button class="copy-all-btn" onclick="copyAll()">📋 Copy to Clipboard</button>
+    </div>
+    <div class="output-body" id="output-body">
+      <div class="empty-state">
+        <div class="big-icon">⚡</div>
+        <p>Fill the form and click<br><strong>Generate Optimized PDP</strong></p>
       </div>
-
-      <button class="raw-btn" onclick="toggleRaw()">Ver / ocultar JSON crudo</button>
-      <pre id="raw-json"></pre>
     </div>
   </div>
 
 </div>
 
 <script>
-  async function generate() {
-    const brand = document.getElementById("brand").value;
-    const retailer = document.getElementById("retailer").value;
-    const generic_text = document.getElementById("generic-text").value.trim();
-    const keywords = document.getElementById("keywords").value.trim();
+let state = { brand: "", retailer: "", imageB64: "", imageType: "image/jpeg", lastResult: null };
 
-    const errBox = document.getElementById("error-box");
-    errBox.style.display = "none";
+/* ── SELECTORS ── */
+function selectBrand(btn, val) {
+  document.querySelectorAll("#brand-group .toggle-btn").forEach(b => b.classList.remove("active-brand"));
+  btn.classList.add("active-brand");
+  state.brand = val;
+  updateSubtitle();
+}
+function selectRetailer(btn, val) {
+  document.querySelectorAll("#retailer-group .toggle-btn").forEach(b => b.classList.remove("active-retailer"));
+  btn.classList.add("active-retailer");
+  state.retailer = val;
+  updateSubtitle();
+}
+function updateSubtitle() {
+  const b = state.brand || "?", r = state.retailer || "?";
+  document.getElementById("page-subtitle").textContent = `PDP OPTIMIZER (for ${b} on ${r})`;
+  document.getElementById("output-title").textContent = `Optimized PDP Output (for ${r})`;
+}
 
-    if (!brand || !retailer || !generic_text || !keywords) {
-      errBox.textContent = "Completa todos los campos antes de continuar.";
-      errBox.style.display = "block";
-      return;
-    }
+/* ── KEYWORD COUNT ── */
+function updateKwCount() {
+  const kws = document.getElementById("keywords").value
+    .split(/[\n,]+/).map(k => k.trim()).filter(Boolean);
+  document.getElementById("kw-count").textContent = kws.length + " Keywords";
+}
 
-    setLoading(true);
+/* ── IMAGE HANDLING ── */
+function onDragOver(e) { e.preventDefault(); document.getElementById("drop-zone").classList.add("drag-over"); }
+function onDragLeave()  { document.getElementById("drop-zone").classList.remove("drag-over"); }
+function onDrop(e)      { e.preventDefault(); onDragLeave(); processFile(e.dataTransfer.files[0]); }
+function onFileChange(e){ processFile(e.target.files[0]); }
 
-    try {
-      const res = await fetch("/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ brand, retailer, generic_text, keywords }),
-      });
-      const data = await res.json();
+function processFile(file) {
+  if (!file || !file.type.startsWith("image/")) return;
+  if (file.size > 4 * 1024 * 1024) { alert("Imagen demasiado grande (máx 4 MB)"); return; }
+  state.imageType = file.type;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const dataUrl = ev.target.result;
+    state.imageB64 = dataUrl.split(",")[1];
+    document.getElementById("preview-img").src = dataUrl;
+    document.getElementById("drop-placeholder").style.display = "none";
+    document.getElementById("image-preview-row").style.display = "flex";
+    document.getElementById("vision-text").textContent = "Image ready — insights will appear after generation.";
+    document.getElementById("vision-status").textContent = "Image loaded. ✓";
+  };
+  reader.readAsDataURL(file);
+}
 
-      if (!res.ok || !data.success) {
-        errBox.textContent = data.error || "Error desconocido.";
-        errBox.style.display = "block";
-        document.getElementById("result-section").style.display = "none";
-        return;
-      }
+/* ── GENERATE ── */
+async function generate() {
+  const keywords     = document.getElementById("keywords").value.trim();
+  const generic_text = document.getElementById("generic-text").value.trim();
 
-      renderResult(data.result);
-    } catch (e) {
-      errBox.textContent = "Error de conexión: " + e.message;
-      errBox.style.display = "block";
-    } finally {
-      setLoading(false);
-    }
-  }
+  const errBar = document.getElementById("error-bar");
+  errBar.style.display = "none";
 
-  function renderResult(r) {
-    document.getElementById("titulo").textContent = r.titulo_optimizado || "";
-    document.getElementById("char-titulo").textContent = r.caracteres_titulo + " chars";
+  if (!state.brand)    return showErr("Selecciona una marca (Step 1).");
+  if (!state.retailer) return showErr("Selecciona un retailer (Step 2).");
+  if (!keywords)       return showErr("Agrega al menos un keyword (Step 3).");
 
-    const ul = document.getElementById("bullets");
-    ul.innerHTML = "";
-    (r.bullet_points || []).forEach(b => {
-      const li = document.createElement("li");
-      li.textContent = b;
-      ul.appendChild(li);
+  setLoading(true);
+  try {
+    const res  = await fetch("/generate", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        brand: state.brand, retailer: state.retailer,
+        generic_text, keywords,
+        image_b64: state.imageB64, image_type: state.imageType,
+      }),
     });
-
-    document.getElementById("descripcion").textContent = r.descripcion_optimizada || "";
-    document.getElementById("char-desc").textContent = r.caracteres_descripcion + " chars";
-
-    const kwDiv = document.getElementById("keywords-out");
-    kwDiv.innerHTML = "";
-    (r.keywords_integradas || []).forEach(k => {
-      const span = document.createElement("span");
-      span.className = "kw-tag";
-      span.textContent = k;
-      kwDiv.appendChild(span);
-    });
-
-    document.getElementById("raw-json").textContent = JSON.stringify(r, null, 2);
-    document.getElementById("result-section").style.display = "block";
-    document.getElementById("result-section").scrollIntoView({ behavior: "smooth" });
+    const data = await res.json();
+    if (!res.ok || !data.success) return showErr(data.error || "Error desconocido.");
+    state.lastResult = data.result;
+    if (data.result.vision_insights) {
+      document.getElementById("vision-text").textContent = data.result.vision_insights;
+      document.getElementById("vision-status").textContent = "Image analyzed. ✓";
+    }
+    renderOutput(data.result);
+  } catch(e) {
+    showErr("Error de conexión: " + e.message);
+  } finally {
+    setLoading(false);
   }
+}
 
-  function setLoading(on) {
-    const btn = document.getElementById("generate-btn");
-    const spinner = document.getElementById("spinner");
-    const label = document.getElementById("btn-label");
-    btn.disabled = on;
-    spinner.style.display = on ? "block" : "none";
-    label.textContent = on ? "Generando..." : "Generar Contenido Optimizado";
-  }
+function showErr(msg) {
+  const bar = document.getElementById("error-bar");
+  bar.textContent = msg; bar.style.display = "block";
+  setLoading(false);
+}
 
-  function toggleRaw() {
-    const pre = document.getElementById("raw-json");
-    pre.style.display = pre.style.display === "none" ? "block" : "none";
-  }
+/* ── RENDER OUTPUT ── */
+function renderOutput(r) {
+  const limits = r.char_limits || {title:200, bullet:250, description:2000};
+  let html = "";
+
+  /* Title */
+  const tChars = r.caracteres_titulo || (r.titulo_optimizado||"").length;
+  const tClass = tChars > limits.title ? "over" : tChars > limits.title * .9 ? "warn" : "ok";
+  html += `
+    <div class="out-section">
+      <div class="out-section-title">
+        Product Title
+        <span class="char-count ${tClass}">${tChars} / ${limits.title} ${tClass==="ok"?"✓":"⚠"}</span>
+      </div>
+      <div class="out-text-box ${tClass==="over"?"over":"ok"}">${esc(r.titulo_optimizado)}</div>
+    </div>`;
+
+  /* Bullets */
+  const bullets = r.bullet_points || [];
+  html += `<div class="out-section"><div class="out-section-title">Bullet Points <span class="char-count" style="color:var(--gray)">${bullets.length} bullets · max ${limits.bullet} chars each</span></div><ul class="bullets-list">`;
+  bullets.forEach((b, i) => {
+    const bc = b.length;
+    const bClass = bc > limits.bullet ? "over" : "ok";
+    html += `<li class="bullet-item ${bClass}">
+      <span class="bullet-num">${i+1}</span>
+      <span class="bullet-text">${esc(b)}</span>
+      <span class="bullet-chars ${bClass}">${bc}/${limits.bullet}</span>
+    </li>`;
+  });
+  html += `</ul></div>`;
+
+  /* Description */
+  const dChars = r.caracteres_descripcion || (r.descripcion_optimizada||"").length;
+  const dClass = dChars > limits.description ? "over" : dChars > limits.description * .9 ? "warn" : "ok";
+  html += `
+    <div class="out-section">
+      <div class="out-section-title">
+        Product Description
+        <span class="char-count ${dClass}">${dChars} / ${limits.description} ${dClass==="ok"?"✓":"⚠"}</span>
+      </div>
+      <div class="out-text-box ${dClass==="over"?"over":"ok"}" style="white-space:pre-wrap;max-height:220px;overflow-y:auto">${esc(r.descripcion_optimizada)}</div>
+    </div>`;
+
+  /* Validation */
+  const allLengthsOk = tClass !== "over" && dClass !== "over" && bullets.every(b => b.length <= limits.bullet);
+  const kwIn   = (r.keywords_integradas||[]).length;
+  const kwAll  = document.getElementById("keywords").value.split(/[\n,]+/).filter(Boolean).length || 1;
+  const kwPct  = Math.round(kwIn / kwAll * 100);
+  const lenPct = allLengthsOk ? 100 : 40;
+  html += `
+    <div class="validation-box">
+      <div class="val-item">
+        <div class="val-label">Lengths</div>
+        <div class="val-bar-bg"><div class="val-bar ${lenPct===100?"green":"red"}" style="width:${lenPct}%"></div></div>
+        <div class="val-pct">${lenPct === 100 ? "All within limits ✓" : "Some over limit ⚠"}</div>
+      </div>
+      <div class="val-item">
+        <div class="val-label">KW Adherence</div>
+        <div class="val-bar-bg"><div class="val-bar ${kwPct>=60?"green":kwPct>=30?"yellow":"red"}" style="width:${kwPct}%"></div></div>
+        <div class="val-pct">${kwPct}% (${kwIn} / ${kwAll} integrated)</div>
+      </div>
+    </div>`;
+
+  /* Keywords used */
+  const kwTags = (r.keywords_integradas||[]).map(k => `<span class="kw-tag">${esc(k)}</span>`).join("");
+  html += `<div class="out-section"><div class="out-section-title">Keywords Used</div><div class="kw-tags">${kwTags||"—"}</div></div>`;
+
+  /* Actions */
+  html += `
+    <div class="action-row">
+      <button class="action-btn secondary" onclick="copyAll()">📋 Copy to Clipboard</button>
+      <button class="action-btn primary"   onclick="exportJson()">⬇ Export JSON</button>
+    </div>`;
+
+  document.getElementById("output-body").innerHTML = html;
+  document.getElementById("output-body").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+/* ── UTILITIES ── */
+function esc(str) {
+  return (str||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+function setLoading(on) {
+  document.getElementById("generate-btn").disabled = on;
+  document.getElementById("spinner").style.display  = on ? "block" : "none";
+  document.getElementById("btn-label").textContent  = on ? "Generating..." : "Generate Optimized PDP";
+}
+
+function copyAll() {
+  if (!state.lastResult) return;
+  const r = state.lastResult;
+  const text = [
+    "TÍTULO:", r.titulo_optimizado, "",
+    "BULLET POINTS:", ...(r.bullet_points||[]).map((b,i) => `${i+1}. ${b}`), "",
+    "DESCRIPCIÓN:", r.descripcion_optimizada, "",
+    "KEYWORDS INTEGRADAS:", (r.keywords_integradas||[]).join(", "),
+  ].join("\n");
+  navigator.clipboard.writeText(text).then(() => alert("Copiado al portapapeles ✓"));
+}
+
+function exportJson() {
+  if (!state.lastResult) return;
+  const blob = new Blob([JSON.stringify(state.lastResult, null, 2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `pdp_${state.brand}_${state.retailer}_${Date.now()}.json`;
+  a.click();
+}
 </script>
 </body>
 </html>
