@@ -1,0 +1,139 @@
+{
+  "datos_personales": {
+    "nombre_completo": "José Antonio Castillo de Regil",
+    "ubicacion": "Ciudad de México, México",
+    "email": "josean_castillo95@hotmail.com",
+    "telefono": "+52 55 3038 2821",
+    "linkedin": "linkedin.com/in/jose-regil"
+  },
+  "titular_headline": "Global Growth & E-Commerce | Digital Strategy | Retail Media",
+  "perfil_resumen_variantes": [
+    "Profesional de Digital & E-Commerce con más de 5 años de trayectoria en FMCG (Essity, Grupo Peñafiel, Nestlé), especializado en Commercial Content, Digital Shelf y Retail Media a nivel regional y global. Experto en aceleración de ventas omnicanal mediante atribución de marketing, CRO con Inteligencia Artificial, SEO avanzado y automatización PIM/DAM. Historial comprobable diseñando frameworks (Ways of Working) que reducen el Time-to-Market y garantizan Brand Safety corporativa."
+  ],
+  "experiencia": [
+    {
+      "empresa": "Essity",
+      "puesto": "Growth & E-Commerce Specialist – Global Digital Solutions",
+      "fecha_inicio": "2026-07",
+      "fecha_fin": "Actualidad",
+      "ubicacion": "",
+      "logros_y_responsabilidades": [
+        "Lidero el diseño y ejecución de la estrategia global de soluciones digitales, definiendo directrices de crecimiento y optimización comercial para el portafolio de marcas en mercados internacionales",
+        "Colaboro con gerencia y dirección global para asegurar la alineación estratégica e interfuncional entre los equipos de Producto, Marketing y Tecnología",
+        "Estandarizo los Ways of Working de conversión digital a nivel mundial, optimizando consistencia y escalabilidad de las marcas en puntos de contacto clave",
+        "Superviso la gobernanza de la experiencia digital del consumidor, garantizando el despliegue eficiente de nuevas tecnologías de e-commerce en mercados internacionales"
+      ],
+      "herramientas_usadas": []
+    },
+    {
+      "empresa": "Essity",
+      "puesto": "E-Business Strategist – Digital Experience LATAM",
+      "fecha_inicio": "2023-07",
+      "fecha_fin": "2026-07",
+      "ubicacion": "",
+      "logros_y_responsabilidades": [
+        "Escalé el programa regional de A/B Testing y la arquitectura de Commercial Content en Amazon (MX & US) y LATAM, generando +40% de crecimiento en ventas y optimizando rank orgánico y conversión",
+        "Dirigí auditorías CRO basadas en IA (Feng-GUI) e implementé atribución omnicanal (MikMak), elevando el CTR de 1.90% a 2.53%",
+        "Desplegué el proceso regional de gestión de activos digitales (PIM/DAM – Nubesk), reduciendo el Time-to-Market a 48 horas e incrementando el Image Score de 40% a 85%",
+        "Monitoreé reputación digital y auditoría competitiva en tiempo real (Brandwatch / Shalion) para sub-marcas críticas como Regio, articulando comités transversales entre Ventas, Trade, Marketing y Tecnología",
+        "Ejecuté optimización masiva de SEO y catálogo en 416 SKUs de las marcas TENA, Saba y Regio, aplicando tono de voz específico por marca y vocabulario prohibido definido por lineamientos corporativos",
+        "Adapté contenido para múltiples retailers de forma simultánea: Sam's Club, Rappi, Chedraui, Fragua, Farmacias del Ahorro, Soriana y Benavides",
+        "Realicé homologación de ASINs para Saba IntimaWear en Amazon México",
+        "Gestioné el llenado de ficha de producto (product data filing) para 13 SKUs en el sistema de Soriana",
+        "Desarrollé contenido para A/B testing en Amazon para TENA Pants, incorporando una estrategia de reframe de keyword hacia 'pañales para adulto'",
+        "Optimicé listados individuales en Amazon México para productos Saba (V-Cup Copa Menstrual, Buenas Noches, IntimaWear Hipster), aplicando la estructura del Amazon Style Guide y principios del algoritmo A10/COSMO",
+        "Construí una app en React ('PDP Optimizer') usando la API de Anthropic para generación de contenido de producto adaptado por retailer"
+      ],
+      "herramientas_usadas": ["Amazon Vendor Central", "Feng-GUI", "MikMak", "Nubesk", "Brandwatch", "Shalion", "React", "Anthropic API"]
+    },
+    {
+      "empresa": "Grupo Peñafiel",
+      "puesto": "Analista de E-Commerce",
+      "fecha_inicio": "2022-09",
+      "fecha_fin": "2023-07",
+      "ubicacion": "",
+      "logros_y_responsabilidades": [
+        "Aceleré un incremento neto de +20% en ventas en cuentas asignadas mediante estrategias transversales entre Marketing y Comercial",
+        "Dirigí la gestión de catálogo y optimización avanzada de PDPs en Amazon Vendor Central, garantizando el cumplimiento de objetivos comerciales",
+        "Desarrollé modelos de Data Intelligence (Sell-In / Sell-Out), transformando datos en insights accionables para pricing, surtido y activaciones"
+      ],
+      "herramientas_usadas": ["Amazon Vendor Central"]
+    },
+    {
+      "empresa": "Nestlé",
+      "puesto": "Practicante de E-Commerce – Canal Mayorista",
+      "fecha_inicio": "2020-09",
+      "fecha_fin": "2022-09",
+      "ubicacion": "",
+      "logros_y_responsabilidades": [
+        "Colaboré en el diseño de iniciativas comerciales digitales que impulsaron +235% de crecimiento en ventas del canal e-commerce",
+        "Gestioné fichas técnicas, campañas promocionales y cumplimiento normativo (NOM-051, Código Internacional de Sucedáneos) del catálogo digital B2B, mejorando el posicionamiento orgánico del canal mayorista"
+      ],
+      "herramientas_usadas": []
+    }
+  ],
+  "proyectos_destacados": [
+    {
+      "nombre": "PDP Optimizer",
+      "empresa_contexto": "Essity",
+      "descripcion": "App en React usando la API de Anthropic para generación de contenido de producto adaptado por retailer",
+      "resultados_medibles": []
+    },
+    {
+      "nombre": "MikMak CCS — Shoppable Media para Saba IntimaWear",
+      "empresa_contexto": "Essity",
+      "descripcion": "Propuesta de shoppable media para Saba IntimaWear en Amazon MX y D2C",
+      "resultados_medibles": []
+    },
+    {
+      "nombre": "A+ Premium Content — Sub-marcas Regio",
+      "empresa_contexto": "Essity",
+      "descripcion": "Desarrollo de contenido A+ Premium para las sub-marcas de Regio; proyecto de largo plazo",
+      "resultados_medibles": []
+    },
+    {
+      "nombre": "Chatbot B2B para Tenderos",
+      "empresa_contexto": "Essity",
+      "descripcion": "Journey de chatbot B2B para Regio dirigido a pequeños retailers (tenderos); proyecto de largo plazo",
+      "resultados_medibles": []
+    },
+    {
+      "nombre": "Regio Rinde+",
+      "empresa_contexto": "Essity",
+      "descripcion": "Estrategia de contenido y campaña mayorista para Regio Rinde+; proyecto de largo plazo",
+      "resultados_medibles": []
+    },
+    {
+      "nombre": "Trazabilidad del Consumidor Full-Funnel",
+      "empresa_contexto": "Essity",
+      "descripcion": "Iniciativa de trazabilidad full-funnel del consumidor; proyecto de largo plazo. Contexto: Regio actualmente no cuenta con un CDP",
+      "resultados_medibles": []
+    }
+  ],
+  "educacion": [
+    {
+      "institucion": "Universidad Anáhuac México",
+      "titulo": "Licenciatura en Dirección y Administración de Empresas",
+      "fecha_inicio": "2016",
+      "fecha_fin": "2022"
+    }
+  ],
+  "certificaciones": [
+    {"nombre": "Intro to Search Marketing", "institucion": "QA Ltd", "anio": "2025"},
+    {"nombre": "Media Mix Program", "institucion": "ESIC Business School", "anio": "2024"},
+    {"nombre": "Display Ads Programmatic", "institucion": "Mercado Libre", "anio": "2023"},
+    {"nombre": "E-Commerce & Omnichannel", "institucion": "AMVO", "anio": "2022"}
+  ],
+  "idiomas": [
+    {"idioma": "Español", "nivel": "Nativo"},
+    {"idioma": "Inglés", "nivel": "Avanzado, entorno de negocio global diario"}
+  ],
+  "herramientas_y_competencias": {
+    "estrategia_comercial": ["Commercial Content", "Digital Shelf", "Retail Media", "Channel Mix", "Omnichannel Shopper Marketing", "Consumer Journey"],
+    "performance_y_growth": ["SEO", "SEM", "CRO", "A/B Testing", "Programmatic Display", "Media Mix Attribution", "CTR Optimization"],
+    "data_y_gobernanza": ["Sell-In/Sell-Out KPIs", "Consumer Insights", "Brand Safety", "Liderazgo Regional y Global", "Cross-functional Ways of Working"],
+    "plataformas_ecommerce": ["Amazon Vendor Central", "Shopify", "Salsify"],
+    "analitica_y_bi": ["GA4", "Power BI", "Semrush", "Feng-GUI", "Brandwatch", "SimilarWeb"],
+    "otras_herramientas": ["Nubesk", "MikMak", "Shalion", "Profitlogiq", "Monday.com", "React", "Anthropic API"]
+  }
+}
