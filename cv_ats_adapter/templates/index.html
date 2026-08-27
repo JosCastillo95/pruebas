@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adaptador de CV a Vacantes — ATS Expert Edition</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header>
+    <h1>Adaptador de CV a Vacantes</h1>
+    <p class="subtitle">ATS Expert Edition — solo usa lo que existe en tu CV Maestro</p>
+  </header>
+
+  <main>
+    <section class="panel" id="panel-maestro">
+      <h2>1. CV Maestro <span class="hint">(única fuente de verdad)</span></h2>
+      <p class="hint">Edita el JSON directamente. Nada en el CV generado puede existir fuera de aquí.</p>
+      <textarea id="cv-maestro-editor" spellcheck="false"></textarea>
+      <div class="row">
+        <button id="btn-guardar-cv">Guardar CV Maestro</button>
+        <span id="cv-maestro-status" class="status"></span>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-vacante">
+      <h2>2. Vacante</h2>
+      <textarea id="vacante-input" placeholder="Pega aquí el texto completo de la vacante..."></textarea>
+      <div class="row">
+        <label class="checkbox">
+          <input type="checkbox" id="chk-gancho" />
+          Generar también variante "gancho" del perfil (para LinkedIn/outreach)
+        </label>
+      </div>
+      <div class="row">
+        <button id="btn-procesar">Adaptar CV a esta vacante</button>
+        <span id="procesar-status" class="status"></span>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-resultado" hidden>
+      <h2>3. Resultado</h2>
+      <div id="resultado-bloqueado" hidden class="alert alert-block">
+        <h3>Proceso detenido</h3>
+        <p id="motivo-detencion"></p>
+        <div id="discrepancias-criticas"></div>
+      </div>
+
+      <div id="resultado-ok" hidden>
+        <div class="score-row">
+          <div class="score-badge" id="score-badge">--</div>
+          <div>
+            <div><strong>Puntaje de compatibilidad ATS + Recruiter Score</strong></div>
+            <div class="hint" id="ciclos-info"></div>
+          </div>
+        </div>
+
+        <div class="downloads">
+          <a id="link-docx" class="btn-download" hidden download>Descargar .docx</a>
+          <a id="link-pdf" class="btn-download" hidden download>Descargar .pdf</a>
+        </div>
+        <p id="pdf-error" class="alert alert-warning" hidden></p>
+
+        <div id="gancho-block" hidden class="callout">
+          <h3>Variante "gancho" del perfil</h3>
+          <p id="gancho-texto"></p>
+          <p class="hint" id="gancho-advertencia"></p>
+          <details>
+            <summary>Versión suavizada alternativa</summary>
+            <p id="gancho-suave"></p>
+          </details>
+        </div>
+
+        <details open>
+          <summary>Discrepancias tipo "matiz" (no bloquean)</summary>
+          <div id="discrepancias-matiz"></div>
+        </details>
+
+        <details>
+          <summary>Gaps detectados frente a la vacante</summary>
+          <ul id="gaps-detectados"></ul>
+        </details>
+
+        <details>
+          <summary>Campos del CV Maestro que valdría la pena completar</summary>
+          <ul id="campos-incompletos"></ul>
+        </details>
+
+        <details>
+          <summary>Señales de alerta y cómo se resolvieron (Fase 1 → Fase 2)</summary>
+          <div id="señales-info"></div>
+        </details>
+
+        <details>
+          <summary>Secciones en riesgo según el último scoring</summary>
+          <ul id="secciones-riesgo"></ul>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
