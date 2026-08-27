@@ -199,7 +199,9 @@ def generate_docx(
             title_run = p.add_run(f"{edu.get('titulo', '')} — {edu.get('institucion', '')}")
             _set_run_font(title_run, bold=True, size=BODY_SIZE)
             fechas = " - ".join(
-                f for f in [edu.get("fecha_inicio", ""), edu.get("fecha_fin", "")] if f
+                f
+                for f in [_format_date(edu.get("fecha_inicio", "")), _format_date(edu.get("fecha_fin", ""))]
+                if f
             )
             if fechas:
                 meta_p = document.add_paragraph()
@@ -211,7 +213,11 @@ def generate_docx(
     if certificaciones:
         _add_section_header(document, labels["certificaciones"])
         for cert in certificaciones:
-            texto = f"{cert.get('nombre', '')} — {cert.get('institucion', '')} ({cert.get('anio', '')})"
+            anio = _format_date(cert.get("anio", ""))
+            texto = f"{cert.get('nombre', '')} — {cert.get('institucion', '')} ({anio})"
+            vigencia = cert.get("vigencia", "")
+            if vigencia:
+                texto += f" · Vigencia: {vigencia}"
             _add_bullet(document, texto)
 
     # Idiomas

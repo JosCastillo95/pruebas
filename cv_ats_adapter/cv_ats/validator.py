@@ -12,11 +12,26 @@ from __future__ import annotations
 
 import json
 import re
+import unicodedata
 from typing import Any
 
 from .claude_client import ClaudeClient
 
 NUMBER_PATTERN = re.compile(r"\d[\d,.]*\s*%?")
+PARENTHETICAL_PATTERN = re.compile(r"\s*\([^)]*\)")
+
+
+def _normalize(text: str) -> str:
+    """Minúsculas, sin acentos, sin paréntesis, espacios colapsados.
+
+    Se usa para comparar empresas/herramientas del CV_ADAPTADO contra el
+    CV_MAESTRO tolerando variaciones superficiales (acentos, un paréntesis
+    aclaratorio como "Grupo Peñafiel (Keurig Dr Pepper)") sin abrir la
+    puerta a falsos negativos: solo colapsa forma, nunca contenido.
+    """
+    text = PARENTHETICAL_PATTERN.sub("", text or "")
+    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
+    return re.sub(r"\s+", " ", text).strip().lower()
 
 CAPA2_SYSTEM_PROMPT = """\
 Compara el CV_ADAPTADO contra el CV_MAESTRO, oración por oración.
@@ -56,17 +71,17 @@ def _master_tool_set(cv_maestro: dict) -> set[str]:
     tools: set[str] = set()
     for exp in cv_maestro.get("experiencia", []):
         for tool in exp.get("herramientas_usadas", []) or []:
-            tools.add(tool.strip().lower())
+            tools.add(_normalize(tool))
     competencias = cv_maestro.get("herramientas_y_competencias", {}) or {}
     for grupo in competencias.values():
         for item in grupo or []:
-            tools.add(str(item).strip().lower())
+            tools.add(_normalize(str(item)))
     return {t for t in tools if t}
 
 
 def _master_company_set(cv_maestro: dict) -> set[str]:
     return {
-        exp.get("empresa", "").strip().lower()
+        _normalize(exp.get("empresa", ""))
         for exp in cv_maestro.get("experiencia", [])
         if exp.get("empresa")
     }
@@ -113,7 +128,7 @@ def validar_capa1(cv_maestro: dict, cv_adaptado: dict) -> list[dict]:
 
     master_tools = _master_tool_set(cv_maestro)
     for tool in _collect_adapted_tools(cv_adaptado):
-        normalized = tool.strip().lower()
+        normalized = _normalize(tool)
         if normalized in master_tools:
             continue
         # Subcadena permitida solo en un sentido y con un largo mínimo, para
@@ -138,8 +153,20 @@ def validar_capa1(cv_maestro: dict, cv_adaptado: dict) -> list[dict]:
 
     master_companies = _master_company_set(cv_maestro)
     for company in _collect_adapted_companies(cv_adaptado):
-        if company.strip().lower() not in master_companies:
-            discrepancias.append(
+        normalized_company = _normalize(company)
+        if normalized_company in master_companies:
+            continue
+        # Igual que con herramientas: subcadena tolerada solo con largo
+        # mínimo, para permitir que se omita un calificativo entre
+        # paréntesis (ej. "Grupo Peñafiel" vs "Grupo Peñafiel (Keurig Dr
+        # Pepper)") sin aceptar coincidencias parciales espurias.
+        if len(normalized_company) >= 6 and any(
+            normalized_company in mc or mc in normalized_company
+            for mc in master_companies
+            if len(mc) >= 6
+        ):
+            continue
+        discrepancias.append(
                 {
                     "capa": 1,
                     "tipo": "empresa",
